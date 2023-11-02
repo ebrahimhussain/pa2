@@ -41,6 +41,12 @@ void Deque<T>::pushR(T newItem)
     // else {
     //     n2++;
     // }
+
+    cout << "pushr: ";
+    for (int i=0; i < this->data.size(); i++) {
+        cout << data.at(i) << " ";
+    }
+    cout << endl;
 }
 
 /**
@@ -55,14 +61,22 @@ template <class T>
 // only called when function is not empty
 T Deque<T>::popL()
 {
+    cout << "popl" << endl;
+    cout << "before: ";
+    for (int i=0; i < this->data.size(); i++) {
+        cout << data.at(i) << " ";
+    }
+    cout << endl;
+
     T left_data = data[n1];
-    data[n1] = NULL;
+    data[n1] = 0;
 
     n1++;
     int num_elements = n2 - n1 + 1;
 
     // resize if elements can fit from 0 -> n1
     if (n1 >= num_elements) {
+        cout << "resizing" << endl;
         vector<T> new_data;
 
         for (int i=n1; i <= n2; i++) {
@@ -73,6 +87,12 @@ T Deque<T>::popL()
 
         this->data = new_data;
     }
+
+    cout << "after: ";
+    for (int i=0; i < this->data.size(); i++) {
+        cout << data.at(i) << " ";
+    }
+    cout << endl;
 
     return left_data;
 }
@@ -85,14 +105,24 @@ T Deque<T>::popL()
 template <class T>
 T Deque<T>::popR()
 {
+    cout << "popr" << endl;
+    cout << "before: ";
+    for (int i=0; i < this->data.size(); i++) {
+        cout << data.at(i) << " ";
+    }
+    cout << endl;
+
+
     T right_data = data[n2];
     data[n2] = NULL;
 
     n2--;
     int num_elements = n2 - n1 + 1;
 
+    
     // resize if elements can fit from 0 -> n1
     if (n1 >= num_elements) {
+        cout << "resizing" << endl;
         vector<T> new_data;
 
         for (int i=n1; i <= n2; i++) {
@@ -103,6 +133,12 @@ T Deque<T>::popR()
 
         this->data = new_data;
     }
+
+    cout << "after: ";
+    for (int i=0; i < this->data.size(); i++) {
+        cout << data.at(i) << " ";
+    }
+    cout << endl;
 
     return right_data;
 }
