@@ -4,9 +4,9 @@ using namespace std;
 
 treasureMap::treasureMap(const PNG & baseim, const PNG & mazeim, pair<int,int> s)
 {
-
-/* YOUR CODE HERE */
-
+    this->start = s;
+    this->base = baseim;
+    this->maze = mazeim;
 }
 
 void treasureMap::setGrey(PNG & im, pair<int,int> loc){
