@@ -25,7 +25,7 @@ void Deque<T>::pushR(T newItem)
 {
     data.push_back(newItem);
 
-    if (data.size == 1) {
+    if (data.size() == 1) {
         n1 = 0;
         n2 = 0;
     } else {
