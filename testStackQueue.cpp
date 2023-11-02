@@ -59,4 +59,18 @@ TEST_CASE("queue::basic functions","[weight=1][part=queue]"){
     REQUIRE( result == expected);
     cout << "Queue passed" << endl;
 }
+TEST_CASE("stack::test","[weight=1][part=stack]") {
+    Stack<int>intStack;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 10; j++) {
+            intStack.push(i);
+        }
+        for (int j = 0; j < 5; j++) {
+            cout << intStack.pop() << endl;
+        }
+    }
 
+    while (!intStack.isEmpty()) {
+        cout << intStack.pop() << endl;
+    }
+}

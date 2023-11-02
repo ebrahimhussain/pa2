@@ -23,7 +23,12 @@ Deque<T>::Deque(){
 template <class T>
 void Deque<T>::pushR(T newItem)
 {
-    data.push_back(newItem);
+
+    if (n2+1 < data.size()) {
+        data.at(n2+1) = newItem;
+    } else {
+        data.push_back(newItem);
+    }
 
     if (data.size() == 1) {
         n1 = 0;
@@ -31,16 +36,6 @@ void Deque<T>::pushR(T newItem)
     } else {
         n2++;
     }
-
-    // // if vector was empty, n2 should still point to the first (and only) element
-    // data.push_back(newItem);
-    // if (data.size() <= 1) {
-    //     n1 = 0;
-    //     n2 = 0;
-    // }
-    // else {
-    //     n2++;
-    // }
 }
 
 /**
