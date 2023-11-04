@@ -16,10 +16,51 @@ PNG decoder::renderSolution(){
 }
 
 PNG decoder::renderMaze(){
+   PNG maze_render(this->mapImg);
 
-/* YOUR CODE HERE */
+   unsigned int height = this->mapImg.height();
+   unsigned int width = this->mapImg.width();
 
+   int start_x = this->start.first;
+   int start_y = this->start.second;
 
+   vector<vector<bool>> visited(height, vector<bool>(width, false));
+   Queue<pair<int,int>> queue;
+   vector<vector<int>> distance(height, vector<int>(width, 0));
+
+   visited.at(start_y).at(start_x) = true;
+   queue.enqueue(this->start);
+
+   while (!queue.isEmpty()) {
+        // get pixel
+        pair<int,int> curr = queue.dequeue();
+        vector<pair<int,int>> ns = neighbors(curr);
+        for (size_t i=0; i < ns.size(); i++) {
+            pair<int,int> neighbor = ns.at(i);
+            if (good(visited, distance, curr, neighbor)) {
+                // if its good, it will be visited at some point
+                visited.at(neighbor.second).at(neighbor.first) = true;
+                setGrey(maze_render, neighbor);
+                queue.enqueue(neighbor);
+            }
+        }
+    }
+
+    int sx = (start_x-3 < 0)? 0: start_x-3;
+    int bx = (start_x+3 > width)? width: start_x+3;
+    int sy = (start_y-3 < 0)? 0: start_y-3;
+    int by = (start_y+3 > height)? height: start_y+3;
+
+    for (int x =sx; x <= bx; x++) {
+        for (int y = sy; y <= by; y++) {
+            RGBAPixel* pixel = maze_render.getPixel(x, y);
+            pixel->r = 255;
+            pixel->g = 0; 
+            pixel->b = 0; 
+        }
+    }
+
+    return maze_render;
 }
 
 void decoder::setGrey(PNG & im, pair<int,int> loc){

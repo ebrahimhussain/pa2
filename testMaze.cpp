@@ -45,50 +45,11 @@ using namespace cs221util;
 // }
 
 
-TEST_CASE("treasureMap::basic no cycles", "[weight=1][part=treasureMap]")
-{
-
-	PNG maze;
-	maze.readFromFile("images/snake.png");
-	pair<int,int> start(1,1);
-
-    PNG base;
-    base.readFromFile("images/sunshine.png");
-
-    treasureMap M(base, maze, start);
-
-    PNG treasure = M.renderMap();
-	treasure.writeToFile("images/embeddedsnake_out.png");
-    PNG treasureans;
-    treasureans.readFromFile("images/embeddedsnake.png");
-    REQUIRE( treasure == treasureans );
-
-    PNG treasuremaze = M.renderMaze();
-	//treasuremaze.writeToFile("images/greyedsnake.png");
-    PNG treasuremazeans;
-	treasuremazeans.readFromFile("images/greyedsnake.png");
-    REQUIRE( treasuremaze == treasuremazeans );
-
-    decoder dec(treasure,start);
-
-    PNG soln = dec.renderSolution();
-    //soln.writeToFile("images/solnsnake.png");
-    PNG solnans;
-    solnans.readFromFile("images/solnsnake.png");
-    REQUIRE( soln == solnans );
-
-    PNG solnmaze = dec.renderMaze();
-    //solnmaze.writeToFile("images/solnsnakemaze.png");
-    PNG solnmazeans;
-    solnmazeans.readFromFile("images/solnsnakemaze.png");
-    REQUIRE( solnmaze == solnmazeans );
-
-}
-
-// TEST_CASE("decoder::basic cycles", "[weight=1][part=decoder]")
+// TEST_CASE("treasureMap::basic no cycles", "[weight=1][part=treasureMap]")
 // {
+
 // 	PNG maze;
-// 	maze.readFromFile("images/maze.png");
+// 	maze.readFromFile("images/snake.png");
 // 	pair<int,int> start(1,1);
 
 //     PNG base;
@@ -97,30 +58,69 @@ TEST_CASE("treasureMap::basic no cycles", "[weight=1][part=treasureMap]")
 //     treasureMap M(base, maze, start);
 
 //     PNG treasure = M.renderMap();
-// 	//treasure.writeToFile("images/embeddedmaze.png");
+// 	treasure.writeToFile("images/embeddedsnake_out.png");
 //     PNG treasureans;
-//     treasureans.readFromFile("images/embeddedmaze.png");
+//     treasureans.readFromFile("images/embeddedsnake.png");
 //     REQUIRE( treasure == treasureans );
 
 //     PNG treasuremaze = M.renderMaze();
-// 	//treasuremaze.writeToFile("images/greyedmaze.png");
+// 	//treasuremaze.writeToFile("images/greyedsnake.png");
 //     PNG treasuremazeans;
-// 	treasuremazeans.readFromFile("images/greyedmaze.png");
+// 	treasuremazeans.readFromFile("images/greyedsnake.png");
 //     REQUIRE( treasuremaze == treasuremazeans );
 
 //     decoder dec(treasure,start);
 
 //     PNG soln = dec.renderSolution();
-//     //soln.writeToFile("images/solnmaze.png");
+//     //soln.writeToFile("images/solnsnake.png");
 //     PNG solnans;
-//     solnans.readFromFile("images/solnmaze.png");
+//     solnans.readFromFile("images/solnsnake.png");
 //     REQUIRE( soln == solnans );
 
 //     PNG solnmaze = dec.renderMaze();
-//     //solnmaze.writeToFile("images/solnmazemaze.png");
+//     //solnmaze.writeToFile("images/solnsnakemaze.png");
 //     PNG solnmazeans;
-//     solnmazeans.readFromFile("images/solnmazemaze.png");
+//     solnmazeans.readFromFile("images/solnsnakemaze.png");
 //     REQUIRE( solnmaze == solnmazeans );
 
 // }
+
+TEST_CASE("decoder::basic cycles", "[weight=1][part=decoder]")
+{
+	PNG maze;
+	maze.readFromFile("images/maze.png");
+	pair<int,int> start(1,1);
+
+    PNG base;
+    base.readFromFile("images/sunshine.png");
+
+    treasureMap M(base, maze, start);
+
+    PNG treasure = M.renderMap();
+	// treasure.writeToFile("images/embeddedmaze.png");
+    PNG treasureans;
+    treasureans.readFromFile("images/embeddedmaze.png");
+    REQUIRE( treasure == treasureans );
+
+    PNG treasuremaze = M.renderMaze();
+	// treasuremaze.writeToFile("images/greyedmaze.png");
+    PNG treasuremazeans;
+	treasuremazeans.readFromFile("images/greyedmaze.png");
+    REQUIRE( treasuremaze == treasuremazeans );
+
+    decoder dec(treasure,start);
+
+    // PNG soln = dec.renderSolution();
+    // //soln.writeToFile("images/solnmaze.png");
+    // PNG solnans;
+    // solnans.readFromFile("images/solnmaze.png");
+    // REQUIRE( soln == solnans );
+
+    PNG solnmaze = dec.renderMaze();
+    solnmaze.writeToFile("images/solnmazemaze.png");
+    PNG solnmazeans;
+    solnmazeans.readFromFile("images/solnmazemaze.png");
+    REQUIRE( solnmaze == solnmazeans );
+
+}
 
