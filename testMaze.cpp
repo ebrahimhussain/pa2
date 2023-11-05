@@ -124,11 +124,11 @@ TEST_CASE("decoder::basic cycles", "[weight=1][part=decoder]")
     REQUIRE( solnmaze == solnmazeans );
 
     
-    // PNG soln = dec.renderSolution();
-    // //soln.writeToFile("images/solnmaze.png");
-    // PNG solnans;
-    // solnans.readFromFile("images/solnmaze.png");
-    // REQUIRE( soln == solnans );
+    PNG soln = dec.renderSolution();
+    soln.writeToFile("images/solnmaze_out.png");
+    PNG solnans;
+    solnans.readFromFile("images/solnmaze.png");
+    REQUIRE( soln == solnans );
 
 }
 

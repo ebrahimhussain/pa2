@@ -107,6 +107,8 @@ private:
     vector<vector<bool>> maze; // true if within maze path
     vector<vector<int>> distances; // shortest distances to start
 
+    vector<vector<pair<int, int>>> creators;
+
 };
 
 #endif

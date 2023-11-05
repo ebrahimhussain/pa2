@@ -10,10 +10,33 @@ decoder::decoder(const PNG & tm, pair<int,int> s):start(s),mapImg(tm) {
    renderMaze(); // render the maze to set maze distances
 }
 
-PNG decoder::renderSolution(){
+PNG decoder::renderSolution() {
+   pair<int, int> T = this->findSpot(); // treasure
+   cout << T.first << ", " << T.second << endl;
+   PNG solution(mapImg);
 
-/* YOUR CODE HERE */
-   return PNG();
+
+   pair<int, int> point = T;
+
+   // while not at the start
+   while (point.first != this->start.first || point.second != this->start.second) {
+      RGBAPixel* pixel = solution.getPixel(point.first, point.second);
+      pixel->r = 255;
+      pixel->g = 0;
+      pixel->b = 0;
+
+      point = this->creators.at(point.second).at(point.first);
+   }
+
+   // make start red
+   RGBAPixel* pixel = solution.getPixel(this->start.first, this->start.second);
+   pixel->r = 255;
+   pixel->g = 0;
+   pixel->b = 0;
+
+   
+
+   return solution;
 }
 
 PNG decoder::renderMaze(){
@@ -28,6 +51,7 @@ PNG decoder::renderMaze(){
    vector<vector<bool>> visited(height, vector<bool>(width, false));
    Queue<pair<int,int>> queue;
    vector<vector<int>> distance(height, vector<int>(width, 0));
+   vector<vector<pair<int, int>>> creator(height, vector<pair<int, int>>(width, make_pair(0, 0))); 
 
    visited.at(start_y).at(start_x) = true;
    queue.enqueue(this->start);
@@ -45,6 +69,10 @@ PNG decoder::renderMaze(){
                visited.at(neighbor.second).at(neighbor.first) = true;
                distance.at(neighbor.second).at(neighbor.first) = curr_distance + 1;
                setGrey(maze_render, neighbor);
+
+               // current made neighbor. at the index of neighbor, points to current
+               creator.at(neighbor.second).at(neighbor.first) = curr;
+
                queue.enqueue(neighbor);
             }
          }
@@ -66,6 +94,7 @@ PNG decoder::renderMaze(){
 
    this->maze = visited;
    this->distances = distance;
+   this->creators = creator;
 
    return maze_render;
 }
