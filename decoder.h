@@ -102,6 +102,11 @@ private:
 	PNG mapImg; // this image has a maze encoded in it 
     vector<pair<int,int>> pathPts; // vector of points on the solution path
 
+    // adding two private member variables,
+
+    vector<vector<bool>> maze; // true if within maze path
+    vector<vector<int>> distances; // shortest distances to start
+
 };
 
 #endif
